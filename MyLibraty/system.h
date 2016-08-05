@@ -33,11 +33,11 @@ int GenerateRandValue(int max_of_randvalue , int min_of_randvalue);
 //概略:
 //	円と円の当たり判定
 //引数:
-//	circle1:円の構造体1
-//	circle2:円の構造体2
+//	circle1:円の構造体へのポインタ1
+//	circle2:円の構造体へのポインタ2
 //戻り値:
-//	TRUE:当たった
-//	FALSE:当たっていない
+//	true:当たった
+//	false:当たっていない
 ///////////////////////////////////////////////////////////////////////////
 bool CheckHitCircleandCircle(CircleClass *circle1 , CircleClass *circle2);
 
@@ -45,13 +45,13 @@ bool CheckHitCircleandCircle(CircleClass *circle1 , CircleClass *circle2);
 //概略:
 //	矩形と矩形のあたり判定
 //引数:
-//	BOX* box1:矩形の構造体へのポインタ1
-//	BOX* box2:矩形の構造体へのポインタ2
+//	box1:矩形の構造体へのポインタ1
+//	box2:矩形の構造体へのポインタ2
 //戻り値:	
 //	int TRUE:当たった
 //	NO_HIT:当たらなかった
 //////////////////////////////////////////////////////////////////////////////
-int CheckHitBoxandBox(BOX *box1 , BOX *box2);
+bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2);
 
 ///////////////////////////////////////////////////////////////////////////
 //概略:
