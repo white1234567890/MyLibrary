@@ -67,7 +67,7 @@ bool CheckHitCircleandCircle(CircleClass *circle1 , CircleClass *circle2)
 	if((Circle2Position.m_Vector.x - Circle1Position.m_Vector.x) * (Circle2Position.m_Vector.x - Circle1Position.m_Vector.x) +
 		(Circle2Position.m_Vector.y - Circle1Position.m_Vector.y) * (Circle2Position.m_Vector.y - Circle1Position.m_Vector.y) +
 		(Circle2Position.m_Vector.z - Circle1Position.m_Vector.z) * (Circle2Position.m_Vector.z - Circle1Position.m_Vector.z) <=
-		(Circle2Radius + Circle1Radius) * (Circle2Radius + Circle1Radius));
+		(Circle2Radius + Circle1Radius) * (Circle2Radius + Circle1Radius))
 	{
 		return true;
 	}
@@ -302,6 +302,8 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 
 	}
 
+	Box1Vertex.m_VertexPosition.clear();
+	Box2Vertex.m_VertexPosition.clear();
 	return false;
 }
 
@@ -315,104 +317,136 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 //	int TRUE:当たった
 //	NO_HIT:当たらなかった
 ///////////////////////////////////////////////////////////////////////////
-int CheckHitCircleandBox(CIRCLE *circle1 , BOX *box1)
+bool CheckHitCircleandBox(CircleClass *circle1 , BoxClass *box1)
 {
 	//お互いが当たる可能性があるかを判定する
-	if(HitBoxandRangeContact(&circle1->m_position , &box1->m_position , circle1->m_radius + GetLength_of_Vector(box1->m_semi_long_vector.x , box1->m_semi_long_vector.y)))
+	if(HitBoxandRangeContact(&circle1->GetPosition() , &box1->GetPosition() , circle1->GetRadius() + box1->GetSemiLongAxis()))
 	{
+		POSITION Circle1Position = circle1->GetPosition();
+
+		POSITION Box1Position = box1->GetPosition();
+		VARIABLE_VERTEX Box1Vertex;
+		for(int i = 0 ; i < 4 ; i++)
+		{
+			Box1Vertex.m_VertexPosition.push_back(Box1Position);
+		}
+		Box1Vertex = box1->GetVertex();
+		THREE_DIMENSION_VECTOR Box1SemiLongVector = box1->GetSemiLongVector();
+		THREE_DIMENSION_VECTOR Box1SemiShortVector = box1->GetSemiShortVector();
+
 		POSITION LocalVertex_of_Box1Looking_from_Circle1;
 		double length;
 
 		//circle1からbox1の頂点を見る
-		length = GetDistance(&circle1->m_position , &box1->m_position);
+		length = GetDistance(&Circle1Position , &Box1Position);
 
 		//頂点と当たっているか確認する
 		//一番近い頂点を調べる
 		for(int i = 1 ; i <= 4 ; i++)
 		{
-			switch (i)
+			if(length < GetDistance(&Box1Vertex.m_VertexPosition[i] , &Circle1Position))
 			{
-			case 1:
-				if(length < GetDistance(&box1->m_vertex.vertex1 , &circle1->m_position))
-				{
-					//box1.vertex1の判定
-					//box1.vertex1のローカル座標を出す
-					LocalVertex_of_Box1Looking_from_Circle1.x = box1->m_vertex.vertex1.x - circle1->m_position.x;	//x座標
-					LocalVertex_of_Box1Looking_from_Circle1.y = box1->m_vertex.vertex1.y - circle1->m_position.y;	//y座標
+				//頂点のローカル座標を出す
+				LocalVertex_of_Box1Looking_from_Circle1.m_Vector.x = Box1Vertex.m_VertexPosition[i].m_Vector.x - Circle1Position.m_Vector.x;	//x座標
+				LocalVertex_of_Box1Looking_from_Circle1.m_Vector.y = Box1Vertex.m_VertexPosition[i].m_Vector.y - Circle1Position.m_Vector.y;	//y座標
 
-					//lengthの更新
-					length = GetDistance(&box1->m_vertex.vertex1 , &circle1->m_position);
-				}
-				break;
-
-			case 2:
-				if(length < GetDistance(&box1->m_vertex.vertex2 , &circle1->m_position))
-				{
-					//box1.vertex2の判定
-					//box1.vertex2のローカル座標を出す
-					LocalVertex_of_Box1Looking_from_Circle1.x = box1->m_vertex.vertex2.x - circle1->m_position.x;	//x座標
-					LocalVertex_of_Box1Looking_from_Circle1.y = box1->m_vertex.vertex2.y - circle1->m_position.y;	//y座標
-
-					//lengthの更新
-					length = GetDistance(&box1->m_vertex.vertex2 , &circle1->m_position);
-				}
-				break;
-
-			case 3:
-				if(length < GetDistance(&box1->m_vertex.vertex3 , &circle1->m_position))
-				{
-					//box1.vertex3の判定
-					//box1.vertex3のローカル座標を出す
-					LocalVertex_of_Box1Looking_from_Circle1.x = box1->m_vertex.vertex3.x - circle1->m_position.x;	//x座標
-					LocalVertex_of_Box1Looking_from_Circle1.y = box1->m_vertex.vertex3.y - circle1->m_position.y;	//y座標
-
-					//lengthの更新
-					length = GetDistance(&box1->m_vertex.vertex3 , &circle1->m_position);
-				}
-				break;
-
-			case 4:
-				if(length < GetDistance(&box1->m_vertex.vertex4 , &circle1->m_position))
-				{
-					//box1.vertex4の判定
-					//box1.vertex4のローカル座標を出す
-					LocalVertex_of_Box1Looking_from_Circle1.x = box1->m_vertex.vertex4.x - circle1->m_position.x;	//x座標
-					LocalVertex_of_Box1Looking_from_Circle1.y = box1->m_vertex.vertex4.y - circle1->m_position.y;	//y座標
-
-					//lengthの更新
-					length = GetDistance(&box1->m_vertex.vertex4 , &circle1->m_position);
-				}
-				break;
+				//lengthの更新
+				length = GetDistance(&Box1Vertex.m_VertexPosition[i] , &Circle1Position);
 			}
+
+			//	switch (i)
+			//	{
+			//	case 1:
+			//		if(length < GetDistance(&box1->m_vertex.vertex1 , &circle1->m_position))
+			//		{
+			//			//box1.vertex1の判定
+			//			//box1.vertex1のローカル座標を出す
+			//			LocalVertex_of_Box1Looking_from_Circle1.x = box1->m_vertex.vertex1.x - circle1->m_position.x;	//x座標
+			//			LocalVertex_of_Box1Looking_from_Circle1.y = box1->m_vertex.vertex1.y - circle1->m_position.y;	//y座標
+
+			//			//lengthの更新
+			//			length = GetDistance(&box1->m_vertex.vertex1 , &circle1->m_position);
+			//		}
+			//		break;
+
+			//	case 2:
+			//		if(length < GetDistance(&box1->m_vertex.vertex2 , &circle1->m_position))
+			//		{
+			//			//box1.vertex2の判定
+			//			//box1.vertex2のローカル座標を出す
+			//			LocalVertex_of_Box1Looking_from_Circle1.x = box1->m_vertex.vertex2.x - circle1->m_position.x;	//x座標
+			//			LocalVertex_of_Box1Looking_from_Circle1.y = box1->m_vertex.vertex2.y - circle1->m_position.y;	//y座標
+
+			//			//lengthの更新
+			//			length = GetDistance(&box1->m_vertex.vertex2 , &circle1->m_position);
+			//		}
+			//		break;
+
+			//	case 3:
+			//		if(length < GetDistance(&box1->m_vertex.vertex3 , &circle1->m_position))
+			//		{
+			//			//box1.vertex3の判定
+			//			//box1.vertex3のローカル座標を出す
+			//			LocalVertex_of_Box1Looking_from_Circle1.x = box1->m_vertex.vertex3.x - circle1->m_position.x;	//x座標
+			//			LocalVertex_of_Box1Looking_from_Circle1.y = box1->m_vertex.vertex3.y - circle1->m_position.y;	//y座標
+
+			//			//lengthの更新
+			//			length = GetDistance(&box1->m_vertex.vertex3 , &circle1->m_position);		//		}
+			//		break;
+
+			//	case 4:
+			//		if(length < GetDistance(&box1->m_vertex.vertex4 , &circle1->m_position))
+			//		{
+			//			//box1.vertex4の判定
+			//			//box1.vertex4のローカル座標を出す
+			//			LocalVertex_of_Box1Looking_from_Circle1.x = box1->m_vertex.vertex4.x - circle1->m_position.x;	//x座標
+			//			LocalVertex_of_Box1Looking_from_Circle1.y = box1->m_vertex.vertex4.y - circle1->m_position.y;	//y座標
+
+			//			//lengthの更新
+			//			length = GetDistance(&box1->m_vertex.vertex4 , &circle1->m_position);
+			//		}
+			//		break;
+			//	}
 		}
 
-		if(GetLength_of_Vector(LocalVertex_of_Box1Looking_from_Circle1.x , LocalVertex_of_Box1Looking_from_Circle1.y) < circle1->m_radius)
+		//頂点ｔｐ当たっているか確認する
+		if(GetLength_of_Vector(LocalVertex_of_Box1Looking_from_Circle1.m_Vector.x , LocalVertex_of_Box1Looking_from_Circle1.m_Vector.y) < circle1->GetRadius())
 		{
-			return TRUE;
+			Box1Vertex.m_VertexPosition.clear();
+			return true;
 		}
 
 		//辺と当たっているか確認する
 		//上下辺とのあたり判定を確認する
-		if(circle1->m_position.x < box1->m_position.x + abs(box1->m_semi_long_vector.x + box1->m_semi_short_vector.x) && circle1->m_position.x > box1->m_position.x - abs(box1->m_semi_long_vector.x + box1->m_semi_short_vector.x))
+		if(Circle1Position.m_Vector.x < Box1Position.m_Vector.x + abs(Box1SemiLongVector.x + Box1SemiShortVector.x) &&
+			Circle1Position.m_Vector.x > Box1Position.m_Vector.x - abs(Box1SemiLongVector.x + Box1SemiShortVector.x))
 		{
-			if((circle1->m_position.y - box1->m_position.y) * (circle1->m_position.y - box1->m_position.y) < (circle1->m_radius + abs(box1->m_semi_long_vector.y + box1->m_semi_short_vector.y)) * (circle1->m_radius + abs(box1->m_semi_long_vector.y + box1->m_semi_short_vector.y)))
+			if((Circle1Position.m_Vector.y - Box1Position.m_Vector.y) * (Circle1Position.m_Vector.y - Box1Position.m_Vector.y) <
+				(circle1->GetRadius() + abs(Box1SemiLongVector.y + Box1SemiShortVector.y)) *
+				(circle1->GetRadius() + abs(Box1SemiLongVector.y + Box1SemiShortVector.y)))
 			{
-				return TRUE;
+				Box1Vertex.m_VertexPosition.clear();
+				return true;
 			}
 		}
 		//左右辺とのあたり判定を確認する
-		else if(circle1->m_position.y < box1->m_position.y + abs(box1->m_semi_long_vector.y + box1->m_semi_short_vector.y) && circle1->m_position.y > box1->m_position.y - abs(box1->m_semi_long_vector.y + box1->m_semi_short_vector.y))
+		else if(Circle1Position.m_Vector.y < Box1Position.m_Vector.y + abs(Box1SemiLongVector.y + Box1SemiShortVector.y) &&
+			Circle1Position.m_Vector.y > Box1Position.m_Vector.y - abs(Box1SemiLongVector.y + Box1SemiShortVector.y))
 		{
-			if((circle1->m_position.x - box1->m_position.x) * (circle1->m_position.x - box1->m_position.x) < (circle1->m_radius + abs(box1->m_semi_long_vector.x + box1->m_semi_short_vector.x)) * (circle1->m_radius + abs(box1->m_semi_long_vector.x + box1->m_semi_short_vector.x)))
+			if((Circle1Position.m_Vector.x - Box1Position.m_Vector.x) * (Circle1Position.m_Vector.x - Box1Position.m_Vector.x) <
+				(circle1->GetRadius() + abs(Box1SemiLongVector.x + Box1SemiShortVector.x)) *
+				(circle1->GetRadius() + abs(Box1SemiLongVector.x + Box1SemiShortVector.x)))
 			{
-				return TRUE;
+				Box1Vertex.m_VertexPosition.clear();
+				return true;
 			}
 		}
 
-		return NO_HIT;
-	}
+		Box1Vertex.m_VertexPosition.clear();
+		return false;
+		}
 
-	return NO_HIT;
+		return false;
 }
 
 //////////////////////////////////////////////////////////////////////////////

@@ -26,17 +26,6 @@ BoxClass::~BoxClass(void)
 
 //////////////////////////////////////////////////////////////////////////////
 //概略:
-//	矩形の中心座標を取得する
-//戻り値:
-//	m_Position:矩形の中心座標
-//////////////////////////////////////////////////////////////////////////////
-POSITION BoxClass::GetPosition()
-{
-	return m_Position;
-}
-
-//////////////////////////////////////////////////////////////////////////////
-//概略:
 //	矩形の4つの頂点を取得する
 //戻り値:
 //	m_Vertex:矩形の4つの頂点
@@ -88,4 +77,20 @@ THREE_DIMENSION_VECTOR BoxClass::GetSemiLongVector()
 THREE_DIMENSION_VECTOR BoxClass::GetSemiShortVector()
 {
 	return m_SemiShortVector;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//概略:
+//	矩形の4つの頂点を算出する
+//////////////////////////////////////////////////////////////////////////////
+void BoxClass::SetVertex()
+{
+	m_Vertex.m_VertexPosition[0].m_Vector.x = m_Position.m_Vector.x + m_SemiLongVector.x + m_SemiShortVector.x;
+	m_Vertex.m_VertexPosition[0].m_Vector.y = m_Position.m_Vector.y + m_SemiLongVector.y + m_SemiShortVector.y;
+	m_Vertex.m_VertexPosition[1].m_Vector.x = m_Position.m_Vector.x + m_SemiLongVector.x - m_SemiShortVector.x;
+	m_Vertex.m_VertexPosition[1].m_Vector.y = m_Position.m_Vector.y + m_SemiLongVector.y - m_SemiShortVector.y;
+	m_Vertex.m_VertexPosition[2].m_Vector.x = m_Position.m_Vector.x - m_SemiLongVector.x + m_SemiShortVector.x;
+	m_Vertex.m_VertexPosition[2].m_Vector.y = m_Position.m_Vector.y - m_SemiLongVector.y + m_SemiShortVector.y;
+	m_Vertex.m_VertexPosition[3].m_Vector.x = m_Position.m_Vector.x - m_SemiLongVector.x - m_SemiShortVector.x;
+	m_Vertex.m_VertexPosition[3].m_Vector.y = m_Position.m_Vector.y - m_SemiLongVector.y - m_SemiShortVector.y;
 }

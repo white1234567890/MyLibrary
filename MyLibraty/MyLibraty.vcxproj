@@ -85,17 +85,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BaseObjectClass.h" />
     <ClInclude Include="BoxClass.h" />
     <ClInclude Include="CircleClass.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="DebugSwitch.h" />
+    <ClInclude Include="PhysicsClass.h" />
     <ClInclude Include="system.h" />
+    <ClInclude Include="TimerClass.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseObjectClass.cpp" />
     <ClCompile Include="BoxClass.cpp" />
     <ClCompile Include="CircleClass.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PhysicsClass.cpp" />
     <ClCompile Include="system.cpp" />
+    <ClCompile Include="TimerClass.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,16 +1,11 @@
 #pragma once
-#include "common.h"
+#include "BaseObjectClass.h"
 
-
-class CircleClass
+class CircleClass:
+	public BaseObjectClass
 {
 private:
 	//メンバ変数
-
-	bool m_Flag;	//フラグ
-	POSITION m_Position;	//中心座標
-	VELOCITY m_Velocity;	//速度
-	ACCELARATION m_Accelaration;	//加速度
 	double m_Radius;	//半径
 
 public:
@@ -21,14 +16,6 @@ public:
 	~CircleClass(void);
 
 	//メンバ関数
-	
-	//////////////////////////////////////////////////////////////////////////////
-	//概略:
-	//	円の中心座標を取得する
-	//戻り値:
-	//　m_Position:円の中心座標
-	//////////////////////////////////////////////////////////////////////////////
-	POSITION GetPosition();
 
 	//////////////////////////////////////////////////////////////////////////////
 	//概略:

@@ -57,13 +57,13 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2);
 //概略:
 //	円と矩形のあたり判定
 //引数:
-//	CIRCLE* circle1:円の構造体へのポインタ
-//	BOX* box1:矩形の構造体へのポインタ
+//	circle1:円の構造体へのポインタ
+//	box1:矩形の構造体へのポインタ
 //戻り値:	
-//	int TRUE:当たった
-//	NO_HIT:当たらなかった
+//	true:当たった
+//	false:当たらなかった
 //////////////////////////////////////////////////////////////////////////////
-int CheckHitCircleandBox(CIRCLE *circle1 , BOX *box1);
+bool CheckHitCircleandBox(CircleClass *circle1 , BoxClass *box1);
 
 //////////////////////////////////////////////////////////////////////////////
 //概略:
