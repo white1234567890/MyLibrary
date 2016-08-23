@@ -1,5 +1,5 @@
 #pragma once
-#include "singletonclass.h"
+#include "SingletonClass.h"
 #include "SceneClass.h"
 
 class SceneManagerClass :
@@ -19,7 +19,8 @@ public:
 	//シーン列挙型
 	enum _SCENE
 	{
-		E_GAME_MAIN,
+		E_GAME_TITLE,	//タイトルシーン
+		E_GAME_MAIN,	//メインシーン
 	};
 
 	static void ChangeScene(_SCENE scene);	//シーンの遷移

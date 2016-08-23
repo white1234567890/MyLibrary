@@ -21,10 +21,15 @@ SceneManagerClass::~SceneManagerClass(void)
 
 void SceneManagerClass::ChangeScene(_SCENE scene)
 {
+	static SceneTitleClass SceneTitle;
 	static SceneMainClass SceneMain;
 
 	switch (scene)
 	{
+	case SceneManagerClass::E_GAME_TITLE:
+		m_Scene = &SceneTitle;
+		break;
+
 	case SceneManagerClass::E_GAME_MAIN:
 		m_Scene = &SceneMain;
 		break;

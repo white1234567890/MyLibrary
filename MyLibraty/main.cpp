@@ -22,15 +22,6 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine
 	{
 		ClearDrawScreen();//âÊñ ÇÃèâä˙âª
 
-		switch (GameMode)
-		{
-		case GAME_INIT:
-			break;
-
-		case GAME_MAIN:
-			break;
-		}
-
 		if(CheckHitKey(KEY_INPUT_ESCAPE))
 		{
 			GameMode = END;

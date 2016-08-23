@@ -12,6 +12,18 @@ public:
 	virtual void Render() = 0;	//シーンの描画
 };
 
+class SceneTitleClass :
+	public BaseSceneClass
+{
+public:
+	//コンストラクタ
+	SceneTitleClass();
+	//デストラクタ
+	~SceneTitleClass();
+	
+	void Render();	//シーンの描画
+};
+
 class SceneMainClass :
 	public BaseSceneClass
 {

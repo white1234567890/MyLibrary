@@ -469,14 +469,15 @@ double GetDistance(POSITION* position1 , POSITION* position2)
 //概略:
 //	ベクトルの大きさを取る
 //引数:
-//	double x:ベクトルのx成分
-//	double y:ベクトルのy成分
+//	x:ベクトルのx成分
+//	y:ベクトルのy成分
+//	z:ベクトルのz成分
 //戻り値:
 //	ベクトルの大きさ(double型)
 //////////////////////////////////////////////////////////////////////////////
-double GetLength_of_Vector(double x , double y)
+double GetLength_of_Vector(double x , double y , double z)
 {
-	return sqrt(x * x + y * y);
+	return sqrt(x * x + y * y + z * z);
 }
 
 //////////////////////////////////////////////////////////////////////////////
