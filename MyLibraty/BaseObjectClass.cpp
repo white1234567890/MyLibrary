@@ -27,6 +27,11 @@ void BaseObjectClass::MoveObject()
 	m_Position.m_Vector += m_Velocity.m_Vector;
 }
 
+void BaseObjectClass::MoveObject(bool grounded_flag)
+{
+	m_Position.m_Vector += m_Velocity.m_Vector + m_GravityVelocity;
+}
+
 //////////////////////////////////////////////////////////////////////////////
 //ŠT—ª:
 //	•¨‘Ì‚ð‰Á‘¬‚³‚¹‚é
