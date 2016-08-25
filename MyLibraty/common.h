@@ -27,7 +27,7 @@ const double PLAYER_SPEED = 5;															//プレイヤーの速さ
 enum GAME_MODE
 {
 	GAME_INIT,	//ゲーム初期化
-	GAME_MAIN,	//ゲームメイン
+	GAME_PLAY,	//ゲームメイン
 	END = 99		//終了
 };
 
@@ -37,6 +37,23 @@ typedef struct THREE_DIMENSION_VECTOR
 	double x;	//x座標
 	double y;	//y座標
 	double z;	//z座標
+
+	THREE_DIMENSION_VECTOR operator + (THREE_DIMENSION_VECTOR obj)
+	{
+		THREE_DIMENSION_VECTOR ret;
+		ret.x = this->x + obj.x;
+		ret.y = this->y + obj.y;
+		ret.z = this->z + obj.z;
+		return ret;
+	}
+
+	void operator += (THREE_DIMENSION_VECTOR obj)
+	{
+		this->x = this->x + obj.x;
+		this->y = this->y + obj.y;
+		this->z = this->z + obj.z;
+	}
+
 }THREE_DIMENSION_VECTOR;
 
 //位置

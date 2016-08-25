@@ -1,4 +1,5 @@
 #include "common.h"
+#include "DebugRoom.h"
 
 //•Ï”‚ÌÀ‘Ì‰»
 GAME_MODE GameMode = GAME_INIT;
@@ -21,6 +22,16 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine
 	while(ProcessMessage() == 0 && GameMode != 99)
 	{
 		ClearDrawScreen();//‰æ–Ê‚Ì‰Šú‰»
+
+		if(GameMode == GAME_INIT)
+		{
+			DebugInit();
+		}
+
+#ifdef DEBUG
+		DebugView();
+#endif // DEBUG
+
 
 		if(CheckHitKey(KEY_INPUT_ESCAPE))
 		{

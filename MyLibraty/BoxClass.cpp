@@ -1,4 +1,5 @@
 #include "BoxClass.h"
+#include "system.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //コンストラクタ
@@ -18,6 +19,15 @@ BoxClass::BoxClass(void)
 BoxClass::~BoxClass(void)
 {
 	m_Vertex.m_VertexPosition.clear();
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//private関数
+//////////////////////////////////////////////////////////////////////////////
+
+bool BoxClass::Initialize()
+{
+	return true;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -93,4 +103,56 @@ void BoxClass::SetVertex()
 	m_Vertex.m_VertexPosition[2].m_Vector.y = m_Position.m_Vector.y - m_SemiLongVector.y + m_SemiShortVector.y;
 	m_Vertex.m_VertexPosition[3].m_Vector.x = m_Position.m_Vector.x - m_SemiLongVector.x - m_SemiShortVector.x;
 	m_Vertex.m_VertexPosition[3].m_Vector.y = m_Position.m_Vector.y - m_SemiLongVector.y - m_SemiShortVector.y;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//概略:
+//	更新
+//////////////////////////////////////////////////////////////////////////////
+bool BoxClass::Update()
+{
+	MoveObject();
+	SetVertex();
+	AccelObject();
+	return true;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//概略:
+//	初期化
+//引数:
+//	*position:位置
+//	*velocity:速度
+//	*accelaration:加速度
+//	*semi_long_vector:半長軸ベクトル
+//	*semi_short_vector:半短軸ベクトル
+//	flag:フラグ
+//戻り値:
+//	true:とりあえずtrueを返す
+//////////////////////////////////////////////////////////////////////////////
+bool BoxClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , bool flag)
+{
+	m_Position = *position;
+	m_Velocity = *velocity;
+	m_Accelaration = *accelaration;
+	m_SemiLongVector = *semi_long_vector;
+	m_SemiShortVector = *semi_short_vector;
+
+	m_SemiLongAxis = GetLength_of_Vector(&m_SemiLongVector);
+	m_SemiShortAxis = GetLength_of_Vector(&m_SemiShortVector);
+
+	SetVertex();
+
+	return true;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//概略:
+//	描画
+//////////////////////////////////////////////////////////////////////////////
+void BoxClass::Render()
+{
+	DrawBox((int)m_Vertex.m_VertexPosition[0].m_Vector.x , (int)m_Vertex.m_VertexPosition[0].m_Vector.y ,
+		(int)m_Vertex.m_VertexPosition[3].m_Vector.x , (int)m_Vertex.m_VertexPosition[3].m_Vector.y,
+		0xffffff , true);
 }

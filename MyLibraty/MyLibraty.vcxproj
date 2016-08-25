@@ -89,6 +89,7 @@
     <ClInclude Include="BoxClass.h" />
     <ClInclude Include="CircleClass.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="DebugRoom.h" />
     <ClInclude Include="DebugSwitch.h" />
     <ClInclude Include="GraphicClass.h" />
     <ClInclude Include="PhysicsClass.h" />
@@ -102,6 +103,7 @@
     <ClCompile Include="BaseObjectClass.cpp" />
     <ClCompile Include="BoxClass.cpp" />
     <ClCompile Include="CircleClass.cpp" />
+    <ClCompile Include="DebugRoom.cpp" />
     <ClCompile Include="GraphicClass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsClass.cpp" />
