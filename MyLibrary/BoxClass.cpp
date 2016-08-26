@@ -138,8 +138,8 @@ bool BoxClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION
 	m_SemiLongVector = *semi_long_vector;
 	m_SemiShortVector = *semi_short_vector;
 
-	m_SemiLongAxis = GetLength_of_Vector(&m_SemiLongVector);
-	m_SemiShortAxis = GetLength_of_Vector(&m_SemiShortVector);
+	m_SemiLongAxis = m_SemiLongVector.Magnitude();
+	m_SemiShortAxis = m_SemiShortVector.Magnitude();
 
 	SetVertex();
 

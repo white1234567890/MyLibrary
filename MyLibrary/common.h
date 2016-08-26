@@ -54,7 +54,28 @@ typedef struct THREE_DIMENSION_VECTOR
 		this->z = this->z + obj.z;
 	}
 
-	double Magnitude
+	THREE_DIMENSION_VECTOR operator - ()
+	{
+		THREE_DIMENSION_VECTOR ret;
+		ret.x = -this->x;
+		ret.y = -this->y;
+		ret.z = -this->z;
+		return ret;
+	}
+
+	THREE_DIMENSION_VECTOR operator * (THREE_DIMENSION_VECTOR obj)
+	{
+		THREE_DIMENSION_VECTOR ret;
+		ret.x = this->y * obj.z - this->z * obj.y;
+		ret.y = this->z * obj.x - this->x * obj.z;
+		ret.z = this->x * obj.y - this->y * obj.x;
+		return ret;
+	}
+
+	double Magnitude()
+	{
+		return sqrt(this->x * this->x + this->y * this->y + this->z * this->z);
+	}
 }THREE_DIMENSION_VECTOR;
 
 const THREE_DIMENSION_VECTOR c_ZeroVector = {0 , 0 , 0};

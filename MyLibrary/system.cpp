@@ -410,7 +410,7 @@ bool CheckHitCircleandBox(CircleClass *circle1 , BoxClass *box1)
 		}
 
 		//頂点ｔｐ当たっているか確認する
-		if(GetLength_of_Vector(&LocalVertex_of_Box1Looking_from_Circle1.m_Vector) < circle1->GetRadius())
+		if(LocalVertex_of_Box1Looking_from_Circle1.m_Vector.Magnitude() < circle1->GetRadius())
 		{
 			Box1Vertex.m_VertexPosition.clear();
 			return true;
@@ -467,17 +467,16 @@ double GetDistance(POSITION* position1 , POSITION* position2)
 
 //////////////////////////////////////////////////////////////////////////////
 //概略:
-//	ベクトルの大きさを取る
+//	内積計算
 //引数:
-//	x:ベクトルのx成分
-//	y:ベクトルのy成分
-//	z:ベクトルのz成分
+//	*vector1:ベクトル1
+//	*vector2:ベクトル2
 //戻り値:
-//	ベクトルの大きさ(double型)
+//	内積した値
 //////////////////////////////////////////////////////////////////////////////
-double GetLength_of_Vector(THREE_DIMENSION_VECTOR* vector)
+double InnerProduct(THREE_DIMENSION_VECTOR* vector1 , THREE_DIMENSION_VECTOR* vector2)
 {
-	return sqrt(vector->x * vector->x + vector->y * vector->y + vector->z * vector->z);
+	return vector1->x * vector2->x + vector1->y * vector2->y + vector1->z *vector2->z;
 }
 
 //////////////////////////////////////////////////////////////////////////////
