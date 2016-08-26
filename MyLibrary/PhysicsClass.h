@@ -2,17 +2,20 @@
 #include "common.h"
 #include "TimerClass.h"
 
+//使用クラス宣言
+class BoxClass;
+
 class PhysicsClass
 {
 protected:
 	//メンバ変数
 
-	static const double m_GravityAccelaration;
-	THREE_DIMENSION_VECTOR m_GravityVelocity;
-	bool m_GroundedFlag;
-	double m_Coefficient_of_Restitution;
+	static const double m_GravityAccelaration;	//重力加速度
+	THREE_DIMENSION_VECTOR m_GravityVelocity;	//重力速度
+	bool m_GroundedFlag;	//接地フラグ
+	double m_Coefficient_of_Restitution;	//反発係数
 
-	TimerClass m_GravityTime;
+	TimerClass m_GravityTime;	//滞空時間
 
 	//メンバ関数
 

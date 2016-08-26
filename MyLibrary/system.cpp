@@ -458,7 +458,7 @@ bool CheckHitCircleandBox(CircleClass *circle1 , BoxClass *box1)
 //戻り値:
 //	2点間の距離
 //////////////////////////////////////////////////////////////////////////////
-double GetDistance(POSITION* position1 , POSITION* position2)
+double GetDistance(POSITION *position1 , POSITION *position2)
 {
 	return sqrt((position1->m_Vector.x - position2->m_Vector.x) * (position1->m_Vector.x - position2->m_Vector.x) +
 		(position1->m_Vector.y - position2->m_Vector.y) * (position1->m_Vector.y - position2->m_Vector.y) +
@@ -474,9 +474,27 @@ double GetDistance(POSITION* position1 , POSITION* position2)
 //戻り値:
 //	内積した値
 //////////////////////////////////////////////////////////////////////////////
-double InnerProduct(THREE_DIMENSION_VECTOR* vector1 , THREE_DIMENSION_VECTOR* vector2)
+double InnerProduct(THREE_DIMENSION_VECTOR *vector1 , THREE_DIMENSION_VECTOR *vector2)
 {
 	return vector1->x * vector2->x + vector1->y * vector2->y + vector1->z *vector2->z;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//概略:
+//	外積計算
+//引数:
+//	*vector1:ベクトル1
+//	*vector2:ベクトル2
+//戻り値:
+//	外積した値
+//////////////////////////////////////////////////////////////////////////////
+THREE_DIMENSION_VECTOR CrossProduct(THREE_DIMENSION_VECTOR *vector1 , THREE_DIMENSION_VECTOR *vector2)
+{
+	THREE_DIMENSION_VECTOR ret;
+	ret.x = vector1->y * vector2->z - vector1->z * vector2->y;
+	ret.y = vector1->z * vector2->x - vector1->x * vector2->z;
+	ret.z = vector1->x * vector2->y - vector1->y * vector2->x;
+	return ret;
 }
 
 //////////////////////////////////////////////////////////////////////////////

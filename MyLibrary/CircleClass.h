@@ -4,7 +4,7 @@
 class CircleClass:
 	public BaseObjectClass
 {
-private:
+protected:
 	//ƒƒ“ƒo•Ï”
 	double m_Radius;	//”¼Œa
 

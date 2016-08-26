@@ -38,6 +38,7 @@ typedef struct THREE_DIMENSION_VECTOR
 	double y;	//y座標
 	double z;	//z座標
 
+	//ベクトルの足し算
 	THREE_DIMENSION_VECTOR operator + (THREE_DIMENSION_VECTOR obj)
 	{
 		THREE_DIMENSION_VECTOR ret;
@@ -47,6 +48,7 @@ typedef struct THREE_DIMENSION_VECTOR
 		return ret;
 	}
 
+	//ベクトルの足し算
 	void operator += (THREE_DIMENSION_VECTOR obj)
 	{
 		this->x = this->x + obj.x;
@@ -54,6 +56,7 @@ typedef struct THREE_DIMENSION_VECTOR
 		this->z = this->z + obj.z;
 	}
 
+	//逆ベクトル
 	THREE_DIMENSION_VECTOR operator - ()
 	{
 		THREE_DIMENSION_VECTOR ret;
@@ -63,15 +66,25 @@ typedef struct THREE_DIMENSION_VECTOR
 		return ret;
 	}
 
-	THREE_DIMENSION_VECTOR operator * (THREE_DIMENSION_VECTOR obj)
+	//スカラー倍
+	THREE_DIMENSION_VECTOR operator * (double obj)
 	{
 		THREE_DIMENSION_VECTOR ret;
-		ret.x = this->y * obj.z - this->z * obj.y;
-		ret.y = this->z * obj.x - this->x * obj.z;
-		ret.z = this->x * obj.y - this->y * obj.x;
+		ret.x = this->x * obj;
+		ret.y = this->y * obj;
+		ret.z = this->z * obj;
 		return ret;
 	}
 
+	//スカラー倍
+	void operator *= (double obj)
+	{
+		this->x = this->x * obj;
+		this->y = this->y * obj;
+		this->z = this->z * obj;
+	}
+
+	//ベクトルの大きさ
 	double Magnitude()
 	{
 		return sqrt(this->x * this->x + this->y * this->y + this->z * this->z);

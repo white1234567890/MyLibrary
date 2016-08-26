@@ -44,8 +44,7 @@ double CircleClass::GetRadius()
 //////////////////////////////////////////////////////////////////////////////
 bool CircleClass::Update()
 {
-	GetGravity();
-	MoveObject(m_GroundedFlag);
+	MoveObject();
 	AccelObject();
 
 	return true;
