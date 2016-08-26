@@ -56,6 +56,8 @@ typedef struct THREE_DIMENSION_VECTOR
 
 }THREE_DIMENSION_VECTOR;
 
+const THREE_DIMENSION_VECTOR c_ZeroVector = {0 , 0 , 0};
+
 //ˆÊ’u
 typedef struct POSITION
 {
