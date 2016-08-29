@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseObjectClass.h" />
+    <ClInclude Include="BoxCharactorClass.h" />
     <ClInclude Include="BoxClass.h" />
     <ClInclude Include="CircleCharactorClass.h" />
     <ClInclude Include="CircleClass.h" />
@@ -94,6 +95,7 @@
     <ClInclude Include="DebugRoom.h" />
     <ClInclude Include="DebugSwitch.h" />
     <ClInclude Include="GraphicClass.h" />
+    <ClInclude Include="GroundClass.h" />
     <ClInclude Include="PhysicsClass.h" />
     <ClInclude Include="SceneClass.h" />
     <ClInclude Include="SceneManagerClass.h" />
@@ -103,11 +105,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseObjectClass.cpp" />
+    <ClCompile Include="BoxCharactorClass.cpp" />
     <ClCompile Include="BoxClass.cpp" />
     <ClCompile Include="CircleCharactorClass.cpp" />
     <ClCompile Include="CircleClass.cpp" />
     <ClCompile Include="DebugRoom.cpp" />
     <ClCompile Include="GraphicClass.cpp" />
+    <ClCompile Include="GroundClass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsClass.cpp" />
     <ClCompile Include="SceneClass.cpp" />

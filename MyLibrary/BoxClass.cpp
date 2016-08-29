@@ -6,10 +6,9 @@
 //////////////////////////////////////////////////////////////////////////////
 BoxClass::BoxClass(void)
 {
-	POSITION p;
 	for(int i = 0 ; i < 4 ; i++)
 	{
-		m_Vertex.m_VertexPosition.push_back(p);
+		m_Vertex.m_VertexPosition.push_back(POSITION());
 	}
 }
 
@@ -18,7 +17,8 @@ BoxClass::BoxClass(void)
 //////////////////////////////////////////////////////////////////////////////
 BoxClass::~BoxClass(void)
 {
-	m_Vertex.m_VertexPosition.clear();
+	std::vector<POSITION> Nullvector;
+	m_Vertex.m_VertexPosition.swap(Nullvector);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -36,13 +36,41 @@ bool BoxClass::Initialize()
 
 //////////////////////////////////////////////////////////////////////////////
 //概略:
-//	矩形の4つの頂点を取得する
+//	頂点座標を取得する
 //戻り値:
-//	m_Vertex:矩形の4つの頂点
+//	m_Vertex:頂点座標
 //////////////////////////////////////////////////////////////////////////////
 VARIABLE_VERTEX BoxClass::GetVertex()
 {
 	return m_Vertex;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//概略:
+//	頂点座標を取得する
+//引数:
+//	i:頂点の配列番号
+//戻り値:
+//	m_VertexPosition[i]:頂点座標
+//////////////////////////////////////////////////////////////////////////////
+POSITION BoxClass::GetVertex(unsigned int i)
+{
+	if(i < m_Vertex.m_VertexPosition.size())
+	{
+		return m_Vertex.m_VertexPosition[i];
+	}
+	return m_Vertex.m_VertexPosition[0];
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//概略:
+//	頂点数を取得する
+//戻り値:
+//	m_Vertex.m_VertexPosition.size:頂点数
+//////////////////////////////////////////////////////////////////////////////
+int BoxClass::GetVertexSize()
+{
+	return m_Vertex.m_VertexPosition.size();
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -95,14 +123,14 @@ THREE_DIMENSION_VECTOR BoxClass::GetSemiShortVector()
 //////////////////////////////////////////////////////////////////////////////
 void BoxClass::SetVertex()
 {
-	m_Vertex.m_VertexPosition[0].m_Vector.x = m_Position.m_Vector.x + m_SemiLongVector.x + m_SemiShortVector.x;
-	m_Vertex.m_VertexPosition[0].m_Vector.y = m_Position.m_Vector.y + m_SemiLongVector.y + m_SemiShortVector.y;
-	m_Vertex.m_VertexPosition[1].m_Vector.x = m_Position.m_Vector.x + m_SemiLongVector.x - m_SemiShortVector.x;
-	m_Vertex.m_VertexPosition[1].m_Vector.y = m_Position.m_Vector.y + m_SemiLongVector.y - m_SemiShortVector.y;
-	m_Vertex.m_VertexPosition[2].m_Vector.x = m_Position.m_Vector.x - m_SemiLongVector.x + m_SemiShortVector.x;
-	m_Vertex.m_VertexPosition[2].m_Vector.y = m_Position.m_Vector.y - m_SemiLongVector.y + m_SemiShortVector.y;
-	m_Vertex.m_VertexPosition[3].m_Vector.x = m_Position.m_Vector.x - m_SemiLongVector.x - m_SemiShortVector.x;
-	m_Vertex.m_VertexPosition[3].m_Vector.y = m_Position.m_Vector.y - m_SemiLongVector.y - m_SemiShortVector.y;
+	m_Vertex.m_VertexPosition[0].m_Vector.Set(m_Position.m_Vector.x + m_SemiLongVector.x + m_SemiShortVector.x , 
+		m_Position.m_Vector.y + m_SemiLongVector.y + m_SemiShortVector.y , 0);
+	m_Vertex.m_VertexPosition[1].m_Vector.Set(m_Position.m_Vector.x + m_SemiLongVector.x - m_SemiShortVector.x ,
+		m_Position.m_Vector.y + m_SemiLongVector.y - m_SemiShortVector.y , 0);
+	m_Vertex.m_VertexPosition[2].m_Vector.Set(m_Position.m_Vector.x - m_SemiLongVector.x + m_SemiShortVector.x ,
+		m_Position.m_Vector.y - m_SemiLongVector.y + m_SemiShortVector.y , 0);
+	m_Vertex.m_VertexPosition[3].m_Vector.Set(m_Position.m_Vector.x - m_SemiLongVector.x - m_SemiShortVector.x ,
+		m_Position.m_Vector.y - m_SemiLongVector.y - m_SemiShortVector.y , 0);
 }
 
 //////////////////////////////////////////////////////////////////////////////

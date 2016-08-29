@@ -1,5 +1,6 @@
 #include "PhysicsClass.h"
-#include "BoxClass.h"
+#include "GroundClass.h"
+#include "system.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //静的定数
@@ -9,8 +10,9 @@ const double PhysicsClass::m_GravityAccelaration = 1;
 //コンストラクタ
 PhysicsClass::PhysicsClass(void)
 {
-	m_GravityVelocity = c_ZeroVector;
+	m_GravityVelocity = THREE_DIMENSION_VECTOR();
 	m_GroundedFlag = false;
+	m_Coefficient_of_Restitution = 0;
 }
 
 //デストラクタ
@@ -47,10 +49,28 @@ void PhysicsClass::GetGravity()
 	if(m_GroundedFlag)
 	{
 		m_GravityTime.CounterReset();
+		m_GravityVelocity.y = 0;
 	}
 	else
 	{
-	m_GravityVelocity.y = m_GravityAccelaration * m_GravityTime.GetCounter();
+		m_GravityVelocity.y = m_GravityAccelaration * m_GravityTime.GetCounter();
 	}
+
 	m_GravityTime.TimeCount();
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//概略:
+//	接地判定
+//////////////////////////////////////////////////////////////////////////////
+void IsGrounded()
+{
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//概略:
+//	反発計算
+//////////////////////////////////////////////////////////////////////////////
+void ObjectBound()
+{
 }

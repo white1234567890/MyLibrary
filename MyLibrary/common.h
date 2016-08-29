@@ -38,6 +38,14 @@ typedef struct THREE_DIMENSION_VECTOR
 	double y;	//y座標
 	double z;	//z座標
 
+	//コンストラクタ
+	THREE_DIMENSION_VECTOR(double x = 0 , double y = 0 , double z = 0)
+	{
+		this->x = x;
+		this->y = y;
+		this->z = z;
+	}
+
 	//ベクトルの足し算
 	THREE_DIMENSION_VECTOR operator + (THREE_DIMENSION_VECTOR obj)
 	{
@@ -84,6 +92,14 @@ typedef struct THREE_DIMENSION_VECTOR
 		this->z = this->z * obj;
 	}
 
+	//成分の設定
+	void Set(double x = 0 , double y = 0 , double z = 0)
+	{
+		this->x = x;
+		this->y = y;
+		this->z = z;
+	}
+
 	//ベクトルの大きさ
 	double Magnitude()
 	{
@@ -91,31 +107,38 @@ typedef struct THREE_DIMENSION_VECTOR
 	}
 }THREE_DIMENSION_VECTOR;
 
-const THREE_DIMENSION_VECTOR c_ZeroVector = {0 , 0 , 0};
-
 //位置
 typedef struct POSITION
 {
 	THREE_DIMENSION_VECTOR m_Vector;	//位置ベクトル
+		
+	//コンストラクタ
+	POSITION(double x = 0 , double y = 0 , double z = 0) : m_Vector(x , y , z){}
 }POSITION;
 
 //速度
 typedef struct VELOCITY
 {
 	THREE_DIMENSION_VECTOR m_Vector;	//速度ベクトル
+
+	//コンストラクタ
+	VELOCITY(double x = 0 , double y = 0 , double z = 0) : m_Vector(x , y , z){}
 }VELOCITY;
 
 //加速度
 typedef struct ACCELARATION
 {
 	THREE_DIMENSION_VECTOR m_Vector;	//加速度ベクトル
+
+	//コンストラクタ
+	ACCELARATION(double x = 0 , double y = 0 , double z = 0) : m_Vector(x , y , z){}
 }ACCELARATION;
 
 //可変長頂点
 typedef struct VARIABLE_VERTEX
 {
 	std::vector<POSITION> m_VertexPosition;	//頂点の座標位置
-}SQUAREVERTEX;
+}VARIABLE_VERTEX;
 
 
 //変数の宣言

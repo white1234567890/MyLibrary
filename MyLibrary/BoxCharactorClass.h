@@ -1,16 +1,9 @@
 #pragma once
-#include "circleclass.h"
-
-//使用クラス
-class GroundClass;
-
-class CircleCharactorClass :
-	public CircleClass
+#include "boxclass.h"
+class BoxCharactorClass :
+	public BoxClass
 {
-public:
-	CircleCharactorClass(void);
-	~CircleCharactorClass(void);
-
+protected:
 	//////////////////////////////////////////////////////////////////////////////
 	//概略:
 	//	接地判定
@@ -19,7 +12,8 @@ public:
 	//////////////////////////////////////////////////////////////////////////////
 	void IsGrounded(GroundClass *ground);
 
-	bool Update(GroundClass *ground);
-	void Render();
+public:
+	BoxCharactorClass(void);
+	~BoxCharactorClass(void);
 };
 
