@@ -18,7 +18,6 @@ public:
 	//	*ground:’n–Ê
 	//////////////////////////////////////////////////////////////////////////////
 	void IsGrounded(GroundClass *ground);
-
 	bool Update(GroundClass *ground);
 	void Render();
 };

@@ -39,10 +39,6 @@ void BaseObjectClass::MoveObject(bool& grounded_flag)
 {
 	GetGravity();
 	m_Position.m_Vector += m_Velocity.m_Vector + m_GravityVelocity;
-	if(m_GroundedFlag)
-	{
-		m_Position.m_Vector.y += -(m_Velocity.m_Vector.y + m_GravityVelocity.y);
-	}
 }
 
 //////////////////////////////////////////////////////////////////////////////

@@ -36,10 +36,10 @@ void CircleCharactorClass::IsGrounded(GroundClass *ground)
 //////////////////////////////////////////////////////////////////////////////
 bool CircleCharactorClass::Update(GroundClass *ground)
 {
-	IsGrounded(ground);
 	MoveObject(m_GroundedFlag);
 	AccelObject();
-
+	IsGrounded(ground);
+	
 	return true;
 }
 

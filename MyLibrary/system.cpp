@@ -190,8 +190,10 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 			if(abs(LocalVertex_of_Box1Looking_from_Box2.m_Vector.x) < box2->GetSemiLongAxis() &&
 				abs(LocalVertex_of_Box1Looking_from_Box2.m_Vector.y) < box2->GetSemiShortAxis())
 			{
-				Box1Vertex.m_VertexPosition.clear();
-				Box2Vertex.m_VertexPosition.clear();
+				std::vector<POSITION> NullVector1;
+				Box1Vertex.m_VertexPosition.swap(NullVector1);
+				std::vector<POSITION> NullVector2;
+				Box2Vertex.m_VertexPosition.swap(NullVector2);
 				return true;
 			}
 		}
@@ -200,8 +202,10 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 			if(abs(LocalVertex_of_Box1Looking_from_Box2.m_Vector.x) < box2->GetSemiShortAxis() &&
 				abs(LocalVertex_of_Box1Looking_from_Box2.m_Vector.y) < box2->GetSemiLongAxis())
 			{
-				Box1Vertex.m_VertexPosition.clear();
-				Box2Vertex.m_VertexPosition.clear();
+				std::vector<POSITION> NullVector1;
+				Box1Vertex.m_VertexPosition.swap(NullVector1);
+				std::vector<POSITION> NullVector2;
+				Box2Vertex.m_VertexPosition.swap(NullVector2);
 				return true;
 			}
 		}
@@ -284,8 +288,10 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 			if(abs(LocalVertex_of_Box2Looking_from_Box1.m_Vector.x) < box1->GetSemiLongAxis() &&
 				abs(LocalVertex_of_Box2Looking_from_Box1.m_Vector.y) < box1->GetSemiShortAxis())
 			{
-				Box1Vertex.m_VertexPosition.clear();
-				Box2Vertex.m_VertexPosition.clear();
+				std::vector<POSITION> NullVector1;
+				Box1Vertex.m_VertexPosition.swap(NullVector1);
+				std::vector<POSITION> NullVector2;
+				Box2Vertex.m_VertexPosition.swap(NullVector2);
 				return true;
 			}
 		}
@@ -294,16 +300,19 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 			if(abs(LocalVertex_of_Box2Looking_from_Box1.m_Vector.x) < box1->GetSemiShortAxis() &&
 				abs(LocalVertex_of_Box2Looking_from_Box1.m_Vector.y) < box1->GetSemiLongAxis())
 			{
-				Box1Vertex.m_VertexPosition.clear();
-				Box2Vertex.m_VertexPosition.clear();
+				std::vector<POSITION> NullVector1;
+				Box1Vertex.m_VertexPosition.swap(NullVector1);
+				std::vector<POSITION> NullVector2;
+				Box2Vertex.m_VertexPosition.swap(NullVector2);
 				return true;
 			}
 		}
 
 	}
-
-	Box1Vertex.m_VertexPosition.clear();
-	Box2Vertex.m_VertexPosition.clear();
+	std::vector<POSITION> NullVector1;
+	Box1Vertex.m_VertexPosition.swap(NullVector1);
+	std::vector<POSITION> NullVector2;
+	Box2Vertex.m_VertexPosition.swap(NullVector2);
 	return false;
 }
 
@@ -409,10 +418,11 @@ bool CheckHitCircleandBox(CircleClass *circle1 , BoxClass *box1)
 			//	}
 		}
 
-		//頂点ｔｐ当たっているか確認する
+		//頂点と当たっているか確認する
 		if(LocalVertex_of_Box1Looking_from_Circle1.m_Vector.Magnitude() < circle1->GetRadius())
 		{
-			Box1Vertex.m_VertexPosition.clear();
+			std::vector<POSITION> NullVector;
+			Box1Vertex.m_VertexPosition.swap(NullVector);
 			return true;
 		}
 
@@ -425,7 +435,8 @@ bool CheckHitCircleandBox(CircleClass *circle1 , BoxClass *box1)
 				(circle1->GetRadius() + abs(Box1SemiLongVector.y + Box1SemiShortVector.y)) *
 				(circle1->GetRadius() + abs(Box1SemiLongVector.y + Box1SemiShortVector.y)))
 			{
-				Box1Vertex.m_VertexPosition.clear();
+				std::vector<POSITION> NullVector;
+				Box1Vertex.m_VertexPosition.swap(NullVector);
 				return true;
 			}
 		}
@@ -437,12 +448,14 @@ bool CheckHitCircleandBox(CircleClass *circle1 , BoxClass *box1)
 				(circle1->GetRadius() + abs(Box1SemiLongVector.x + Box1SemiShortVector.x)) *
 				(circle1->GetRadius() + abs(Box1SemiLongVector.x + Box1SemiShortVector.x)))
 			{
-				Box1Vertex.m_VertexPosition.clear();
+				std::vector<POSITION> NullVector;
+				Box1Vertex.m_VertexPosition.swap(NullVector);
 				return true;
 			}
 		}
-
-		Box1Vertex.m_VertexPosition.clear();
+		
+		std::vector<POSITION> NullVector;
+		Box1Vertex.m_VertexPosition.swap(NullVector);
 		return false;
 		}
 
