@@ -102,6 +102,7 @@
     <ClInclude Include="SingletonClass.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="TimerClass.h" />
+    <ClInclude Include="WindowClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseObjectClass.cpp" />
@@ -118,6 +119,7 @@
     <ClCompile Include="SceneManagerClass.cpp" />
     <ClCompile Include="system.cpp" />
     <ClCompile Include="TimerClass.cpp" />
+    <ClCompile Include="WindowClass.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
