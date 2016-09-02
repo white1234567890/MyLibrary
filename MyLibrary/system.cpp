@@ -87,10 +87,10 @@ bool CheckHitCircleandCircle(CircleClass *circle1 , CircleClass *circle2)
 //////////////////////////////////////////////////////////////////////////////
 bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 {
-	POSITION Box1Position = box1->GetPosition();
-	POSITION Box2Position = box2->GetPosition();
-	VARIABLE_VERTEX Box1Vertex;
-	VARIABLE_VERTEX Box2Vertex;
+	POSITION Box1Position = box1->GetPosition();	//box1の位置
+	POSITION Box2Position = box2->GetPosition();	//box2の位置
+	VARIABLE_VERTEX Box1Vertex;	//box1の頂点
+	VARIABLE_VERTEX Box2Vertex;	//box2の頂点
 	for(int i = 0 ; i < 4 ; i++)
 	{
 		Box1Vertex.m_VertexPosition.push_back(Box1Position);
@@ -98,10 +98,10 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 	}
 	Box1Vertex = box1->GetVertex();
 	Box2Vertex = box2->GetVertex();
-	THREE_DIMENSION_VECTOR Box1SemiLongVector = box1->GetSemiLongVector();
-	THREE_DIMENSION_VECTOR Box2SemiLongVector = box2->GetSemiLongVector();
-	THREE_DIMENSION_VECTOR Box1SemiShortVector = box1->GetSemiShortVector();
-	THREE_DIMENSION_VECTOR Box2SemiShortVector = box2->GetSemiShortVector();
+	THREE_DIMENSION_VECTOR Box1SemiLongVector = box1->GetSemiLongVector();	//box1の半長軸ベクトル
+	THREE_DIMENSION_VECTOR Box2SemiLongVector = box2->GetSemiLongVector();	//box2の半長軸ベクトル
+	THREE_DIMENSION_VECTOR Box1SemiShortVector = box1->GetSemiShortVector();	//box1の半短軸ベクトル
+	THREE_DIMENSION_VECTOR Box2SemiShortVector = box2->GetSemiShortVector();	//box2の半短軸ベクトル
 
 	//お互いが当たる可能性があるかを判定する
 	if(abs(Box1Position.m_Vector.x - Box2Position.m_Vector.x) < box1->GetSemiLongAxis() + box2->GetSemiLongAxis() &&
@@ -120,92 +120,46 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 			if(length < GetDistance(&Box1Vertex.m_VertexPosition[i], &Box2Position))
 			{
 				//一番近い頂点のローカル座標を出す
-				LocalVertex_of_Box1Looking_from_Box2.m_Vector.x = Box1Vertex.m_VertexPosition[i].m_Vector.x - Box2Position.m_Vector.x;	//x座標
-				LocalVertex_of_Box1Looking_from_Box2.m_Vector.y = Box1Vertex.m_VertexPosition[i].m_Vector.y - Box2Position.m_Vector.y;	//y座標
-				LocalVertex_of_Box1Looking_from_Box2.m_Vector.z = Box1Vertex.m_VertexPosition[i].m_Vector.z - Box2Position.m_Vector.z;	//z座標
+				LocalVertex_of_Box1Looking_from_Box2.m_Vector = Box1Vertex.m_VertexPosition[i].m_Vector - Box2Position.m_Vector;
 
 				//lengthの更新
 				length = GetDistance(&Box1Vertex.m_VertexPosition[i] , &Box2Position);
 			}
-			
-			//switch (i)
-			//{
-			//case 1:
-			//	if(length < GetDistance(&Box1Vertex.m_VertexPosition[0], &Box2Vertex.m_VertexPosition[0]))
-			//	{
-			//		//box1.vertex1の判定
-			//		//box1.vertex1のローカル座標を出す
-			//		LocalVertex_of_Box1Looking_from_Box2.x = Box1Vertex.vertex1.x - Box2Position.m_Vector.x;	//x座標
-			//		LocalVertex_of_Box1Looking_from_Box2.y = Box1Vertex.vertex1.y - Box2Position.m_Vector.y;	//y座標
-
-			//		//lengthの更新
-			//		length = GetDistance(&Box1Vertex.vertex1 , &Box2Position.m_Vector);
-			//	}
-			//	break;
-
-			//case 2:
-			//	if(length < GetDistance(&Box1Vertex.vertex2 , &Box2Position.m_Vector))
-			//	{
-			//		//box1.vertex2の判定
-			//		//box1.vertex2のローカル座標を出す
-			//		LocalVertex_of_Box1Looking_from_Box2.x = Box1Vertex.vertex2.x - Box2Position.m_Vector.x;	//x座標
-			//		LocalVertex_of_Box1Looking_from_Box2.y = Box1Vertex.vertex2.y - Box2Position.m_Vector.y;	//y座標
-
-			//		//lengthの更新
-			//		length = GetDistance(&Box1Vertex.vertex2 , &Box2Position.m_Vector);
-			//	}
-			//	break;
-
-			//case 3:
-			//	if(length < GetDistance(&Box1Vertex.vertex3 , &Box2Position.m_Vector))
-			//	{
-			//		//box1.vertex3の判定
-			//		//box1.vertex3のローカル座標を出す
-			//		LocalVertex_of_Box1Looking_from_Box2.x = Box1Vertex.vertex3.x - Box2Position.m_Vector.x;	//x座標
-			//		LocalVertex_of_Box1Looking_from_Box2.y = Box1Vertex.vertex3.y - Box2Position.m_Vector.y;	//y座標
-
-			//		//lengthの更新
-			//		length = GetDistance(&Box1Vertex.vertex3 , &Box2Position.m_Vector);
-			//	}
-			//	break;
-
-			//case 4:
-			//	if(length < GetDistance(&Box1Vertex.vertex4 , &Box2Position.m_Vector))
-			//	{
-			//		//box1.vertex4の判定
-			//		//box1.vertex4のローカル座標を出す
-			//		LocalVertex_of_Box1Looking_from_Box2.x = Box1Vertex.vertex4.x - Box2Position.m_Vector.x;	//x座標
-			//		LocalVertex_of_Box1Looking_from_Box2.y = Box1Vertex.vertex4.y - Box2Position.m_Vector.y;	//y座標
-
-			//		//lengthの更新
-			//		length = GetDistance(&Box1Vertex.vertex4 , &Box2Position.m_Vector);
-			//	}
-			//	break;
-			//}
 		}
 
-
+		//box2から見たbox1の頂点のx成分がy成分より大きいとき
 		if(abs(LocalVertex_of_Box1Looking_from_Box2.m_Vector.x) > abs(LocalVertex_of_Box1Looking_from_Box2.m_Vector.y))
 		{
+			//box2から見たbox1の頂点のx成分がbox2の半長軸長より小さい
+			//かつ
+			//box2から見たbox1の頂点のy成分がbox2の半短軸長より小さいとき
 			if(abs(LocalVertex_of_Box1Looking_from_Box2.m_Vector.x) < box2->GetSemiLongAxis() &&
 				abs(LocalVertex_of_Box1Looking_from_Box2.m_Vector.y) < box2->GetSemiShortAxis())
 			{
+				//swapしてメモリを開放する
 				std::vector<POSITION> NullVector1;
 				Box1Vertex.m_VertexPosition.swap(NullVector1);
 				std::vector<POSITION> NullVector2;
 				Box2Vertex.m_VertexPosition.swap(NullVector2);
+				//trueを返す
 				return true;
 			}
 		}
+		//box2から見たbox1の頂点のy成分がx成分より大きいとき
 		else
 		{
+			//box2から見たbox1の頂点のx成分がbox2の半短軸長より小さい
+			//かつ
+			//box2から見たbox1の頂点のy成分がbox2の半長軸長より小さいとき
 			if(abs(LocalVertex_of_Box1Looking_from_Box2.m_Vector.x) < box2->GetSemiShortAxis() &&
 				abs(LocalVertex_of_Box1Looking_from_Box2.m_Vector.y) < box2->GetSemiLongAxis())
 			{
+				//swapしてメモリを開放する
 				std::vector<POSITION> NullVector1;
 				Box1Vertex.m_VertexPosition.swap(NullVector1);
 				std::vector<POSITION> NullVector2;
 				Box2Vertex.m_VertexPosition.swap(NullVector2);
+				//trueを返す
 				return true;
 			}
 		}
@@ -219,100 +173,57 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 			if(length < GetDistance(&Box2Vertex.m_VertexPosition[i], &Box1Position))
 			{
 				//一番近い頂点のローカル座標を出す
-				LocalVertex_of_Box2Looking_from_Box1.m_Vector.x = Box2Vertex.m_VertexPosition[i].m_Vector.x - Box1Position.m_Vector.x;	//x座標
-				LocalVertex_of_Box2Looking_from_Box1.m_Vector.y = Box2Vertex.m_VertexPosition[i].m_Vector.y - Box1Position.m_Vector.y;	//y座標
-				LocalVertex_of_Box2Looking_from_Box1.m_Vector.z = Box2Vertex.m_VertexPosition[i].m_Vector.z - Box1Position.m_Vector.z;	//z座標
+				LocalVertex_of_Box2Looking_from_Box1.m_Vector = Box2Vertex.m_VertexPosition[i].m_Vector - Box1Position.m_Vector;
 
 				//lengthの更新
 				length = GetDistance(&Box2Vertex.m_VertexPosition[i] , &Box1Position);
 			}
-			//switch (i)
-			//{
-			//case 1:
-			//	if(length < GetDistance(&Box2Vertex.vertex1 , &Box1Position.m_Vector))
-			//	{
-			//		//box2.vertex1の判定
-			//		//box2.vertex1のローカル座標を出す
-			//		LocalVertex_of_Box2Looking_from_Box1.x = Box2Vertex.vertex1.x - Box1Position.m_Vector.x;	//x座標
-			//		LocalVertex_of_Box2Looking_from_Box1.y = Box2Vertex.vertex1.y - Box1Position.m_Vector.y;	//y座標
-
-			//		//lengthの更新
-			//		length = GetDistance(&Box2Vertex.vertex1 , &Box1Position.m_Vector);
-			//	}
-			//	break;
-
-			//case 2:
-			//	if(length < GetDistance(&Box2Vertex.vertex2 , &Box1Position.m_Vector))
-			//	{
-			//		//box2.vertex2の判定
-			//		//box2.vertex2のローカル座標を出す
-			//		LocalVertex_of_Box2Looking_from_Box1.x = Box2Vertex.vertex2.x - Box1Position.m_Vector.x;	//x座標
-			//		LocalVertex_of_Box2Looking_from_Box1.y = Box2Vertex.vertex2.y - Box1Position.m_Vector.y;	//y座標
-
-			//		//lengthの更新
-			//		length = GetDistance(&Box2Vertex.vertex2 , &Box1Position.m_Vector);
-			//	}
-			//	break;
-
-			//case 3:
-			//	if(length < GetDistance(&Box2Vertex.vertex3 , &Box1Position.m_Vector))
-			//	{
-			//		//box2.vertex3の判定
-			//		//box2.vertex3のローカル座標を出す
-			//		LocalVertex_of_Box2Looking_from_Box1.x = Box2Vertex.vertex3.x - Box1Position.m_Vector.x;	//x座標
-			//		LocalVertex_of_Box2Looking_from_Box1.y = Box2Vertex.vertex3.y - Box1Position.m_Vector.y;	//y座標
-
-			//		//lengthの更新
-			//		length = GetDistance(&Box2Vertex.vertex3 , &Box1Position.m_Vector);
-			//	}
-			//	break;
-
-			//case 4:
-			//	if(length < GetDistance(&Box2Vertex.vertex4 , &Box1Position.m_Vector))
-			//	{
-			//		//box2.vertex4の判定
-			//		//box2.vertex4のローカル座標を出す
-			//		LocalVertex_of_Box2Looking_from_Box1.x = Box2Vertex.vertex4.x - Box1Position.m_Vector.x;	//x座標
-			//		LocalVertex_of_Box2Looking_from_Box1.y = Box2Vertex.vertex4.y - Box1Position.m_Vector.y;	//y座標
-
-			//		//lengthの更新
-			//		length = GetDistance(&Box2Vertex.vertex4 , &Box1Position.m_Vector);
-			//	}
-			//	break;
-			//}
 		}
-
-
+			
+		//box1から見たbox2の頂点のx成分がy成分より大きいとき
 		if(abs(LocalVertex_of_Box2Looking_from_Box1.m_Vector.x) > abs(LocalVertex_of_Box2Looking_from_Box1.m_Vector.y))
 		{
+			//box1から見たbox2の頂点のx成分がbox1の半長軸長より小さい
+			//かつ
+			//box1から見たbox2の頂点のy成分がbox1の半短軸長より小さいとき
 			if(abs(LocalVertex_of_Box2Looking_from_Box1.m_Vector.x) < box1->GetSemiLongAxis() &&
 				abs(LocalVertex_of_Box2Looking_from_Box1.m_Vector.y) < box1->GetSemiShortAxis())
 			{
+				//swapしてメモリを開放する
 				std::vector<POSITION> NullVector1;
 				Box1Vertex.m_VertexPosition.swap(NullVector1);
 				std::vector<POSITION> NullVector2;
 				Box2Vertex.m_VertexPosition.swap(NullVector2);
+				//trueを返す
 				return true;
 			}
 		}
+		//box1から見たbox2の頂点のy成分がx成分より大きいとき
 		else
 		{
+			//box1から見たbox2の頂点のx成分がbox1の半短軸長より小さい
+			//かつ
+			//box1から見たbox2の頂点のy成分がbox1の半長軸長より小さいとき
 			if(abs(LocalVertex_of_Box2Looking_from_Box1.m_Vector.x) < box1->GetSemiShortAxis() &&
 				abs(LocalVertex_of_Box2Looking_from_Box1.m_Vector.y) < box1->GetSemiLongAxis())
 			{
+				//swapしてメモリを開放する
 				std::vector<POSITION> NullVector1;
 				Box1Vertex.m_VertexPosition.swap(NullVector1);
 				std::vector<POSITION> NullVector2;
 				Box2Vertex.m_VertexPosition.swap(NullVector2);
+				//trueを返す
 				return true;
 			}
 		}
 
 	}
+	//swapしてメモリを開放する
 	std::vector<POSITION> NullVector1;
 	Box1Vertex.m_VertexPosition.swap(NullVector1);
 	std::vector<POSITION> NullVector2;
 	Box2Vertex.m_VertexPosition.swap(NullVector2);
+	//falseを返す
 	return false;
 }
 
@@ -563,4 +474,22 @@ void RotateVector2(double& x ,double& y ,double angle)
 double GetVector2Angle(double x , double y)
 {
 	return atan2(y , x);
+}
+
+double InterSectionTime(POSITION* Position_of_Object1 , VELOCITY* Velocity_of_Object1 , POSITION* Position_of_Object2 , VELOCITY* Velocity_of_Object2)
+{
+	double det = 0;
+	if((det = Velocity_of_Object1->m_Vector.y * Velocity_of_Object2->m_Vector.x - Velocity_of_Object1->m_Vector.x * Velocity_of_Object2->m_Vector.y) == 0) return -1;
+	double con = Velocity_of_Object2->m_Vector.x * (Position_of_Object2->m_Vector.y - Position_of_Object1->m_Vector.y) - Velocity_of_Object2->m_Vector.y * (Position_of_Object2->m_Vector.x - Position_of_Object1->m_Vector.x);
+
+	double t = con / det;
+
+	return t;
+}
+
+template<class T>
+void ReleaseVector(std::vector<T> &obj)
+{
+	std::vector<T> NullVector;
+	obj.swap(NullVector);
 }

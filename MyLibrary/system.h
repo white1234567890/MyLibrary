@@ -132,3 +132,8 @@ void RotateVector2(double& x ,double& y ,double angle);
 //	double angle:ベクトルの角度
 //////////////////////////////////////////////////////////////////////////////
 double GetVector2Angle(double x , double y);
+
+double InterSectionTime(POSITION* Position_of_Object1 , VELOCITY* Velocity_of_Object1 , POSITION* Position_of_Object2 , VELOCITY* Velocity_of_Object2);
+
+template<class T>
+void ReleaseVector(std::vector<T> &obj);

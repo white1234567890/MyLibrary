@@ -67,6 +67,14 @@ void BaseObjectClass::ObjectBound()
 //////////////////////////////////////////////////////////////////////////////
 void BaseObjectClass::ObjectBound(BoxClass *obj)
 {
+	THREE_DIMENSION_VECTOR CollidedEdge = obj->GetVertex(0).m_Vector - obj->GetVertex(obj->GetVertexSize() - 1).m_Vector;	//当たっている辺を調べる
+	THREE_DIMENSION_VECTOR NomalVector = obj->GetPosition().m_Vector - (obj->GetVertex(obj->GetVertexSize() - 1).m_Vector + CollidedEdge * 0.5);	//四角形の法線ベクトル
+	NomalVector.Nomalize();
+
+	for(int i = 0 ; i < obj->GetVertexSize() - 2 ; i++)
+	{
+		CollidedEdge = obj->GetVertex(i).m_Vector - obj->GetVertex(i + 1).m_Vector;
+	}
 
 }
 

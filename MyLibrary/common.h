@@ -64,6 +64,24 @@ typedef struct THREE_DIMENSION_VECTOR
 		this->z = this->z + obj.z;
 	}
 
+	//ベクトルの引き算
+	THREE_DIMENSION_VECTOR operator - (THREE_DIMENSION_VECTOR obj)
+	{
+		THREE_DIMENSION_VECTOR ret;
+		ret.x = this->x - obj.x;
+		ret.y = this->y - obj.y;
+		ret.z = this->z - obj.z;
+		return ret;
+	}
+
+	//ベクトルの引き算
+	void operator -= (THREE_DIMENSION_VECTOR obj)
+	{
+		this->x = this->x - obj.x;
+		this->y = this->y - obj.y;
+		this->z = this->z - obj.z;
+	}
+
 	//逆ベクトル
 	THREE_DIMENSION_VECTOR operator - ()
 	{
@@ -104,6 +122,22 @@ typedef struct THREE_DIMENSION_VECTOR
 	double Magnitude()
 	{
 		return sqrt(this->x * this->x + this->y * this->y + this->z * this->z);
+	}
+
+	//単位ベクトル
+	THREE_DIMENSION_VECTOR GetNomalVector()
+	{
+		THREE_DIMENSION_VECTOR ret;
+		ret.x = this->x / this->Magnitude();
+		ret.y = this->y / this->Magnitude();
+		ret.z = this->z / this->Magnitude();
+		return ret;
+	}
+
+	//単位化
+	void Nomalize()
+	{
+		*this = GetNomalVector();
 	}
 }THREE_DIMENSION_VECTOR;
 
