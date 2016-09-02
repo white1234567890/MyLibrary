@@ -13,7 +13,7 @@ protected:
 	THREE_DIMENSION_VECTOR m_SemiLongVector;	//半長軸ベクトル
 	THREE_DIMENSION_VECTOR m_SemiShortVector;	//半短軸ベクトル
 	
-	bool Initialize();
+	virtual bool Initialize() final;
 
 public:
 	//コンストラクタ
