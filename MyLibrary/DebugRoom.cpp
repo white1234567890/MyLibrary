@@ -1,6 +1,9 @@
 #include "DebugRoom.h"
 #include "CircleCharactorClass.h"
 #include "GroundClass.h"
+#include "SceneManagerClass.h"
+
+SceneManagerClass manag = SingletonClass<SceneManagerClass>::GetInstance();
 
 CircleClass Circle1;
 CircleCharactorClass Circle2;
