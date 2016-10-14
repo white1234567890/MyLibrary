@@ -119,7 +119,7 @@ bool HitBoxandRangeContact(POSITION* object1 , POSITION* object2 , double range)
 //	double& y:ベクトルのy成分
 //	double angle:回転させる角度(ラジアン)
 //////////////////////////////////////////////////////////////////////////////
-void RotateVector2(double& x ,double& y ,double angle);
+THREE_DIMENSION_VECTOR RotateVector2(double x ,double y ,double angle);
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -135,5 +135,13 @@ double GetVector2Angle(double x , double y);
 
 double InterSectionTime(POSITION* Position_of_Object1 , VELOCITY* Velocity_of_Object1 , POSITION* Position_of_Object2 , VELOCITY* Velocity_of_Object2);
 
-template<class T>
-void ReleaseVector(std::vector<T> &obj);
+template<typename T>
+void ReleaseVector(std::vector<T> &obj)
+{
+	std::vector<T> NullVector;
+	obj.swap(NullVector);
+}
+
+double Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesX(double value);
+
+double Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesY(double value);
